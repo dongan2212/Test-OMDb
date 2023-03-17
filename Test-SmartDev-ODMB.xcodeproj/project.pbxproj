@@ -3,27 +3,45 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B1BBECBD887E3B0CB551384 /* Pods_Test_SmartDev_ODMB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9846E8C72DA70C84222348C /* Pods_Test_SmartDev_ODMB.framework */; };
 		84E978B429C41197000D2C2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978B329C41197000D2C2B /* AppDelegate.swift */; };
-		84E978B629C41197000D2C2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978B529C41197000D2C2B /* SceneDelegate.swift */; };
 		84E978B829C41197000D2C2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978B729C41197000D2C2B /* ViewController.swift */; };
 		84E978BB29C41197000D2C2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E978B929C41197000D2C2B /* Main.storyboard */; };
 		84E978BD29C41198000D2C2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84E978BC29C41198000D2C2B /* Assets.xcassets */; };
 		84E978C029C41198000D2C2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E978BE29C41198000D2C2B /* LaunchScreen.storyboard */; };
+		84E978E329C414EF000D2C2B /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978D329C414EF000D2C2B /* NetworkProvider.swift */; };
+		84E978E429C414EF000D2C2B /* APIInputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978D629C414EF000D2C2B /* APIInputable.swift */; };
+		84E978E529C414EF000D2C2B /* APIRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978D729C414EF000D2C2B /* APIRequestable.swift */; };
+		84E978E629C414EF000D2C2B /* CodableParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978DB29C414EF000D2C2B /* CodableParser.swift */; };
+		84E978E729C414EF000D2C2B /* APIOutputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978DC29C414EF000D2C2B /* APIOutputable.swift */; };
+		84E978E829C414EF000D2C2B /* RequesterProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978DE29C414EF000D2C2B /* RequesterProvider.swift */; };
+		84E978E929C414EF000D2C2B /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978E029C414EF000D2C2B /* NetworkLogger.swift */; };
+		84E978EA29C414EF000D2C2B /* APIConfigable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E978E229C414EF000D2C2B /* APIConfigable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		236FB6F42C8AEA3EE4529EB9 /* Pods-Test-SmartDev-ODMB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test-SmartDev-ODMB.debug.xcconfig"; path = "Target Support Files/Pods-Test-SmartDev-ODMB/Pods-Test-SmartDev-ODMB.debug.xcconfig"; sourceTree = "<group>"; };
 		84E978B029C41197000D2C2B /* Test-SmartDev-ODMB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-SmartDev-ODMB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E978B329C41197000D2C2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84E978B529C41197000D2C2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		84E978B729C41197000D2C2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84E978BA29C41197000D2C2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84E978BC29C41198000D2C2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84E978BF29C41198000D2C2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84E978C129C41198000D2C2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84E978D329C414EF000D2C2B /* NetworkProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
+		84E978D629C414EF000D2C2B /* APIInputable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIInputable.swift; sourceTree = "<group>"; };
+		84E978D729C414EF000D2C2B /* APIRequestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestable.swift; sourceTree = "<group>"; };
+		84E978DB29C414EF000D2C2B /* CodableParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableParser.swift; sourceTree = "<group>"; };
+		84E978DC29C414EF000D2C2B /* APIOutputable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIOutputable.swift; sourceTree = "<group>"; };
+		84E978DE29C414EF000D2C2B /* RequesterProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequesterProvider.swift; sourceTree = "<group>"; };
+		84E978E029C414EF000D2C2B /* NetworkLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		84E978E229C414EF000D2C2B /* APIConfigable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfigable.swift; sourceTree = "<group>"; };
+		9D9ED9E3A09AEF462CC96341 /* Pods-Test-SmartDev-ODMB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test-SmartDev-ODMB.release.xcconfig"; path = "Target Support Files/Pods-Test-SmartDev-ODMB/Pods-Test-SmartDev-ODMB.release.xcconfig"; sourceTree = "<group>"; };
+		F9846E8C72DA70C84222348C /* Pods_Test_SmartDev_ODMB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Test_SmartDev_ODMB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +49,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B1BBECBD887E3B0CB551384 /* Pods_Test_SmartDev_ODMB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53CE2F3F33CE3A4880B9D39A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F9846E8C72DA70C84222348C /* Pods_Test_SmartDev_ODMB.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		84E978A729C41197000D2C2B = {
 			isa = PBXGroup;
 			children = (
 				84E978B229C41197000D2C2B /* Test-SmartDev-ODMB */,
 				84E978B129C41197000D2C2B /* Products */,
+				AEA952DF70129E7900E0061E /* Pods */,
+				53CE2F3F33CE3A4880B9D39A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +85,127 @@
 		84E978B229C41197000D2C2B /* Test-SmartDev-ODMB */ = {
 			isa = PBXGroup;
 			children = (
+				84E978CA29C413A4000D2C2B /* Interface */,
+				84E978C929C4139D000D2C2B /* Entity */,
+				84E978C829C41391000D2C2B /* Resource */,
+				84E978C729C41381000D2C2B /* Networking */,
 				84E978B329C41197000D2C2B /* AppDelegate.swift */,
-				84E978B529C41197000D2C2B /* SceneDelegate.swift */,
 				84E978B729C41197000D2C2B /* ViewController.swift */,
 				84E978B929C41197000D2C2B /* Main.storyboard */,
-				84E978BC29C41198000D2C2B /* Assets.xcassets */,
 				84E978BE29C41198000D2C2B /* LaunchScreen.storyboard */,
-				84E978C129C41198000D2C2B /* Info.plist */,
 			);
 			path = "Test-SmartDev-ODMB";
+			sourceTree = "<group>";
+		};
+		84E978C729C41381000D2C2B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				84E978E129C414EF000D2C2B /* Configable */,
+				84E978D329C414EF000D2C2B /* NetworkProvider.swift */,
+				84E978DF29C414EF000D2C2B /* Logger */,
+				84E978D429C414EF000D2C2B /* Requestable */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		84E978C829C41391000D2C2B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				84E978C129C41198000D2C2B /* Info.plist */,
+				84E978BC29C41198000D2C2B /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		84E978C929C4139D000D2C2B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		84E978CA29C413A4000D2C2B /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		84E978D429C414EF000D2C2B /* Requestable */ = {
+			isa = PBXGroup;
+			children = (
+				84E978D529C414EF000D2C2B /* APIInputable */,
+				84E978D729C414EF000D2C2B /* APIRequestable.swift */,
+				84E978D829C414EF000D2C2B /* APIOutputable */,
+				84E978DD29C414EF000D2C2B /* Implement */,
+			);
+			path = Requestable;
+			sourceTree = "<group>";
+		};
+		84E978D529C414EF000D2C2B /* APIInputable */ = {
+			isa = PBXGroup;
+			children = (
+				84E978D629C414EF000D2C2B /* APIInputable.swift */,
+			);
+			path = APIInputable;
+			sourceTree = "<group>";
+		};
+		84E978D829C414EF000D2C2B /* APIOutputable */ = {
+			isa = PBXGroup;
+			children = (
+				84E978D929C414EF000D2C2B /* Parser */,
+				84E978DC29C414EF000D2C2B /* APIOutputable.swift */,
+			);
+			path = APIOutputable;
+			sourceTree = "<group>";
+		};
+		84E978D929C414EF000D2C2B /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				84E978DA29C414EF000D2C2B /* DefaultParser */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		84E978DA29C414EF000D2C2B /* DefaultParser */ = {
+			isa = PBXGroup;
+			children = (
+				84E978DB29C414EF000D2C2B /* CodableParser.swift */,
+			);
+			path = DefaultParser;
+			sourceTree = "<group>";
+		};
+		84E978DD29C414EF000D2C2B /* Implement */ = {
+			isa = PBXGroup;
+			children = (
+				84E978DE29C414EF000D2C2B /* RequesterProvider.swift */,
+			);
+			path = Implement;
+			sourceTree = "<group>";
+		};
+		84E978DF29C414EF000D2C2B /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				84E978E029C414EF000D2C2B /* NetworkLogger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		84E978E129C414EF000D2C2B /* Configable */ = {
+			isa = PBXGroup;
+			children = (
+				84E978E229C414EF000D2C2B /* APIConfigable.swift */,
+			);
+			path = Configable;
+			sourceTree = "<group>";
+		};
+		AEA952DF70129E7900E0061E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				236FB6F42C8AEA3EE4529EB9 /* Pods-Test-SmartDev-ODMB.debug.xcconfig */,
+				9D9ED9E3A09AEF462CC96341 /* Pods-Test-SmartDev-ODMB.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +215,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84E978C429C41198000D2C2B /* Build configuration list for PBXNativeTarget "Test-SmartDev-ODMB" */;
 			buildPhases = (
+				886DCCD2F58B8AAF0BADB185 /* [CP] Check Pods Manifest.lock */,
 				84E978AC29C41197000D2C2B /* Sources */,
 				84E978AD29C41197000D2C2B /* Frameworks */,
 				84E978AE29C41197000D2C2B /* Resources */,
+				CFF5319F5E0DA688A5A07088 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -103,7 +246,7 @@
 				};
 			};
 			buildConfigurationList = 84E978AB29C41197000D2C2B /* Build configuration list for PBXProject "Test-SmartDev-ODMB" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -133,14 +276,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		886DCCD2F58B8AAF0BADB185 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Test-SmartDev-ODMB-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CFF5319F5E0DA688A5A07088 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Test-SmartDev-ODMB/Pods-Test-SmartDev-ODMB-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Test-SmartDev-ODMB/Pods-Test-SmartDev-ODMB-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Test-SmartDev-ODMB/Pods-Test-SmartDev-ODMB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84E978AC29C41197000D2C2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E978E429C414EF000D2C2B /* APIInputable.swift in Sources */,
+				84E978E729C414EF000D2C2B /* APIOutputable.swift in Sources */,
 				84E978B829C41197000D2C2B /* ViewController.swift in Sources */,
+				84E978E829C414EF000D2C2B /* RequesterProvider.swift in Sources */,
 				84E978B429C41197000D2C2B /* AppDelegate.swift in Sources */,
-				84E978B629C41197000D2C2B /* SceneDelegate.swift in Sources */,
+				84E978E329C414EF000D2C2B /* NetworkProvider.swift in Sources */,
+				84E978E929C414EF000D2C2B /* NetworkLogger.swift in Sources */,
+				84E978E529C414EF000D2C2B /* APIRequestable.swift in Sources */,
+				84E978EA29C414EF000D2C2B /* APIConfigable.swift in Sources */,
+				84E978E629C414EF000D2C2B /* CodableParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,19 +474,20 @@
 		};
 		84E978C529C41198000D2C2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 236FB6F42C8AEA3EE4529EB9 /* Pods-Test-SmartDev-ODMB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XXGXD5WD8N;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Test-SmartDev-ODMB/Info.plist";
+				INFOPLIST_FILE = "Test-SmartDev-ODMB/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,27 +495,31 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtdan.smartdev.Test-SmartDev-ODMB";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		84E978C629C41198000D2C2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D9ED9E3A09AEF462CC96341 /* Pods-Test-SmartDev-ODMB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XXGXD5WD8N;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Test-SmartDev-ODMB/Info.plist";
+				INFOPLIST_FILE = "Test-SmartDev-ODMB/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +527,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtdan.smartdev.Test-SmartDev-ODMB";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
