@@ -7,8 +7,8 @@
 
 import Foundation
 
-public protocol NetworkProviable {
-    var observeHeaderStatusCode: ((Int, Error?, Any?) -> Void)? { get set }
+protocol NetworkProviable {
+    var observeHeaderStatusCode: ((Int?, Error?, Any?) -> Void)? { get set }
     init(with config: APIConfigable, and requester: RequesterProviable?)
     func load<T: APIRequestable>(api: T,
                                  onComplete: @escaping (T) -> Void,
@@ -16,11 +16,12 @@ public protocol NetworkProviable {
                                  onServerError: @escaping (Error?) -> Void)
 }
 
-public class NetworkProvider: NetworkProviable {
+class NetworkProvider: NetworkProviable {
     private var config: APIConfigable
     private var requester: RequesterProviable
-    public var observeHeaderStatusCode: ((Int, Error?, Any?) -> Void)?
-    public required init(with config: APIConfigable,
+    var observeHeaderStatusCode: ((Int?, Error?, Any?) -> Void)?
+
+    required init(with config: APIConfigable,
                          and requester: RequesterProviable? = nil) {
         self.config = config
         self.requester = requester ?? AlamofireRequesterProvider()
@@ -33,14 +34,13 @@ public class NetworkProvider: NetworkProviable {
             """)
     }
 
-    public func load<T: APIRequestable>(api: T,
+    func load<T: APIRequestable>(api: T,
                                         onComplete: @escaping (T) -> Void,
                                         onRequestError: @escaping (T) -> Void,
                                         onServerError: @escaping (Error?) -> Void) {
-        Logger.warning("API will call: \(type(of: api.input))")
+        Logger.info("API will call: \(type(of: api.input))")
         Logger.info("API body: \(api.input.makeRequestableBody())")
-        api.excute(with: self.config,
-                   and: self.requester) { [weak self] _, _, statusCode in
+        api.excute(with: self.config, and: self.requester) { [weak self] _, _, statusCode in
             guard let self = self else { return }
             if api.output.hasError() {
                 // TODOs: refactor this logic
@@ -63,7 +63,7 @@ public class NetworkProvider: NetworkProviable {
         }
     }
 
-    private func broadcast(_ statusCode: Int, request: Error?, api: Any?) {
+    private func broadcast(_ statusCode: Int?, request: Error?, api: Any?) {
         if let concreteDelegate = self.observeHeaderStatusCode {
             concreteDelegate(statusCode, request, api)
         }

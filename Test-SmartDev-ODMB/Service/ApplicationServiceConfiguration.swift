@@ -16,7 +16,7 @@ final class ApplicationServiceConfiguration: NSObject, ApplicationConfigurable {
 
     func applicationRoute(from window: UIWindow) {
         self.window = window
-        let mainVC = MoviewResultViewController()
+        let mainVC = MovieResultViewController()
         setRoot(window: window, view: mainVC)
     }
 }

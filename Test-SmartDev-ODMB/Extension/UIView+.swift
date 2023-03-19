@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UIView {
+extension UIView {
     class var loadNib: UINib {
         return UINib(nibName: "\(self)", bundle: nil)
     }

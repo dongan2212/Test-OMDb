@@ -5,7 +5,7 @@
 //  Created by Vo The Dong An on 17/03/2023.
 //
 
-public enum APIRequestType: String {
+enum APIRequestType: String {
     case get = "GET"
     case post = "POST"
     case delete = "DELETE"
@@ -13,12 +13,12 @@ public enum APIRequestType: String {
     case patch = "PATCH"
 }
 
-public enum BodyEncode {
+enum BodyEncode {
     case formdata
     case json
 }
 
-public protocol APIInputable {
+protocol APIInputable {
     var requestType: APIRequestType { get }
     var pathToApi: String { get }
     
@@ -36,22 +36,22 @@ public protocol APIInputable {
 }
 
 extension APIInputable {
-    public func getBodyEncode() -> BodyEncode {
+    func getBodyEncode() -> BodyEncode {
         return .json
     }
     
-    public func shouldBroadcastStatusCode() -> Bool {
+    func shouldBroadcastStatusCode() -> Bool {
         return true
     }
     
-    public func makeFullPathToApi(with config: APIConfigable) -> String {
+    func makeFullPathToApi(with config: APIConfigable) -> String {
         var result = config.host + self.pathToApi
         self.makeUrlParamReplace().forEach({ result = result.replacingOccurrences(of: $0.key,
                                                                                   with: $0.value) })
         return result
     }
     
-    public func makeUrlParamReplace() -> [String: String] {
+    func makeUrlParamReplace() -> [String: String] {
         return [:]
     }
 }

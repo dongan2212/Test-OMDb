@@ -33,17 +33,17 @@ private struct ActivityToken<E>: ObservableConvertibleType, Disposable {
  If there is at least one sequence computation in progress, `true` will be sent.
  When all activities complete `false` will be sent.
  */
-public class ActivityIndicator: SharedSequenceConvertibleType {
-    public typealias Element = Bool
+class ActivityIndicator: SharedSequenceConvertibleType {
+    typealias Element = Bool
 
-    public typealias SharingStrategy = DriverSharingStrategy
+    typealias SharingStrategy = DriverSharingStrategy
 
     private let _lock = NSRecursiveLock()
     private let _variable = BehaviorRelay(value: 0)
     private let _loading: SharedSequence<SharingStrategy, Bool>
     private let loadingIndicator = ServiceFacade.getService(LoadingServiceable.self)
 
-    public init() {
+    init() {
         _loading = _variable.asDriver()
             .map { $0 > 0 }
             .distinctUntilChanged()
@@ -57,12 +57,12 @@ public class ActivityIndicator: SharedSequenceConvertibleType {
         }, observableFactory: { result in
             return result.asObservable()
                 .do(onNext: { [weak self] _ in
-                    self?.loadingIndicator?.hideLoading()
-                }, onError: { [weak self] _ in
-                    self?.loadingIndicator?.hideLoading()
-                }, onCompleted: { [weak self] in
-                    self?.loadingIndicator?.hideLoading()
-                })
+                self?.loadingIndicator?.hideLoading()
+            }, onError: { [weak self] _ in
+                self?.loadingIndicator?.hideLoading()
+            }, onCompleted: { [weak self] in
+                self?.loadingIndicator?.hideLoading()
+            })
         })
     }
 
@@ -78,16 +78,16 @@ public class ActivityIndicator: SharedSequenceConvertibleType {
         _lock.unlock()
     }
 
-    public func asSharedSequence() -> SharedSequence<DriverSharingStrategy, ActivityIndicator.Element> {
+    func asSharedSequence() -> SharedSequence<DriverSharingStrategy, ActivityIndicator.Element> {
         return _loading
     }
 }
 
 extension ObservableConvertibleType {
-    public func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<Element> {
+    func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<Element> {
         return activityIndicator.trackActivityOfObservable(self)
     }
-    public func trackActivity(_ activityIndictor: ActivityIndicator, condition: Bool) -> Observable<Element> {
+    func trackActivity(_ activityIndictor: ActivityIndicator, condition: Bool) -> Observable<Element> {
         guard condition else {
             return self.asObservable()
         }

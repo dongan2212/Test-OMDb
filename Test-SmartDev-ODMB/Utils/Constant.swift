@@ -1,5 +1,5 @@
 //
-//  Storyboard.swift
+//  Constant.swift
 //  Test-SmartDev-ODMB
 //
 //  Created by Vo The Dong An on 19/03/2023.
@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Storyboard: String {
-    case main = "Main"
+struct Constant {
+    static var API_KEY: String = "b9bd48a6"
 }

@@ -17,10 +17,6 @@ extension Optional where Wrapped == String {
     func ignoreNil() -> String {
         self ?? ""
     }
-
-    func withDefaultDash() -> String {
-        self.ignoreNil().isEmpty ? "-" : self.ignoreNil()
-    }
 }
 
 extension Optional where Wrapped == Int {

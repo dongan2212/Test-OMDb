@@ -7,8 +7,8 @@
 
 import Foundation
 
-public typealias APIResponse = (data: Data?, error: Error?, statusCode: Int)
-public protocol APIRequestable {
+typealias APIResponse = (data: Data?, error: Error?, statusCode: Int?)
+protocol APIRequestable {
     associatedtype OutputType: APIOutputable
     associatedtype InputType: APIInputable
     var input: InputType { get }
@@ -20,12 +20,12 @@ public protocol APIRequestable {
 }
 
 extension APIRequestable {
-    public func excute(with config: APIConfigable,
-                       and requester: RequesterProviable,
-                       complete: @escaping (APIResponse) -> Void) {
+    func excute(with config: APIConfigable,
+                and requester: RequesterProviable,
+                complete: @escaping (APIResponse) -> Void) {
         let fullPathToApi = input.makeFullPathToApi(with: config)
-        print("DEBUG - URL request: \(fullPathToApi)")
-        print("DEBUG - Request Type: \(input.requestType)")
+        Logger.info("DEBUG - URL request: \(fullPathToApi)")
+        Logger.info("DEBUG - Request Type: \(input.requestType)")
         self.logRequestInfo(with: fullPathToApi)
         if input.getBodyEncode() == .json {
             requester.makeRequest(path: fullPathToApi,
@@ -47,8 +47,8 @@ extension APIRequestable {
     }
 }
 
-extension APIRequestable {
-    private func updateResultForOutput(from response: APIResponse) {
+private extension APIRequestable {
+    func updateResultForOutput(from response: APIResponse) {
         if let data = response.data,
             let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
             Logger.verbose("""
@@ -66,11 +66,14 @@ extension APIRequestable {
         }
     }
 
-    private func hasError(statusCode: Int) -> Bool {
+    func hasError(statusCode: Int?) -> Bool {
+        guard let statusCode = statusCode else {
+            return true
+        }
         return (statusCode < 200 || statusCode > 299)
     }
 
-    private func logRequestInfo(with path: String) {
+    func logRequestInfo(with path: String) {
         Logger.warning("API full api: \(path)")
         Logger.verbose("[\(type(of: self.input))][Type]: HTTP.\(self.input.requestType)")
         Logger.verbose("[\(type(of: self.input))][Param]: \(self.input.makeRequestableBody())")

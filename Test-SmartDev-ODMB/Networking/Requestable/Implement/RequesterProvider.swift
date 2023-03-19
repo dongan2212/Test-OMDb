@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-public protocol RequesterProviable {
+protocol RequesterProviable {
     func makeRequest(path: String,
                      requestType: APIRequestType,
                      headers: [String: String],
@@ -21,27 +21,28 @@ public protocol RequesterProviable {
                              complete: @escaping (APIResponse) -> Void)
 }
 
-public class AlamofireRequesterProvider: RequesterProviable {
-    public func makeRequest(path: String,
-                            requestType: APIRequestType,
-                            headers: [String: String],
-                            params: [String: Any],
-                            complete: @escaping (APIResponse) -> Void) {
+class AlamofireRequesterProvider: RequesterProviable {
+    func makeRequest(path: String,
+                     requestType: APIRequestType,
+                     headers: [String: String],
+                     params: [String: Any],
+                     complete: @escaping (APIResponse) -> Void) {
         AF.request(path,
                    method: HTTPMethod(rawValue: requestType.rawValue),
                    parameters: params,
                    encoding: (requestType == .get) ? URLEncoding.default : JSONEncoding.default,
                    headers: HTTPHeaders(headers)
         ).responseJSON { (response) in
-            complete((response.data, response.error, response.response?.statusCode ?? 200))
+            complete((response.data, response.error, response.response?.statusCode))
         }
     }
-    public func makeFormDataRequest(path: String,
-                                    requestType: APIRequestType,
-                                    headers: [String: String],
-                                    params: [String: Any],
-                                    complete: @escaping (APIResponse) -> Void) {
-        debugPrint("requestType:\(requestType)")
+
+    func makeFormDataRequest(path: String,
+                             requestType: APIRequestType,
+                             headers: [String: String],
+                             params: [String: Any],
+                             complete: @escaping (APIResponse) -> Void) {
+        Logger.info("requestType:\(requestType)")
         AF.upload(
             multipartFormData: { formData in
                 for param in params {
@@ -68,11 +69,11 @@ public class AlamofireRequesterProvider: RequesterProviable {
             method: HTTPMethod(rawValue: requestType.rawValue),
             headers: HTTPHeaders(headers)
         ).responseJSON { (response) in
-            debugPrint("response:\(response)")
+            Logger.info("response:\(response)")
             if let dataConcrete = response.data {
                 Logger.error("[Error]: \(String(decoding: dataConcrete, as: UTF8.self))")
             }
-            debugPrint("statusCode:\(response.response?.statusCode)")
+            Logger.info("statusCode:\(response.response?.statusCode)")
             complete((response.data, response.error, response.response?.statusCode ?? 200))
         }
     }

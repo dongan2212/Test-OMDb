@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UICollectionView {
+extension UICollectionView {
     /// Register UICollectionViewCell with .xib file using only its corresponding class.
     /// Assumes that the .xib filename and cell class has the same name.
     ///
@@ -36,12 +36,5 @@ public extension UICollectionView {
             fatalError("Couldn't find UICollectionViewCell for \(String(describing: name)), make sure the cell is registered with collection view")
         }
         return cell
-    }
-
-    /// Getting indexpath of last item
-    var lastIndexPath: IndexPath {
-        let lastSection = numberOfSections - 1
-        let lastItem = numberOfItems(inSection: lastSection) - 1
-        return IndexPath(row: lastItem, section: lastSection)
     }
 }

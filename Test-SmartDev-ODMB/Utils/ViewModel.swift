@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-public protocol ViewModelTransformable: AnyObject {
+protocol ViewModelTransformable: AnyObject {
     associatedtype Input
     associatedtype Output
     func transform(input: Input) -> Output
@@ -19,7 +19,7 @@ class ViewModel: NSObject {
     internal var appError = PublishSubject<Error>()
     internal var activity = ActivityIndicator()
 
-    override public init() {
+    override init() {
         disposeBag = DisposeBag()
         super.init()
     }

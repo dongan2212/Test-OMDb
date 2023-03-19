@@ -7,13 +7,13 @@
 
 import Foundation
 
-public struct DebuggerConfig {
+struct DebuggerConfig {
     var enableLog: Bool = false
-    public static let none = DebuggerConfig(enableLog: false)
-    public static let full = DebuggerConfig(enableLog: true)
+    static let none = DebuggerConfig(enableLog: false)
+    static let full = DebuggerConfig(enableLog: true)
 }
 
-public protocol APIConfigable {
+protocol APIConfigable {
     var host: String { get set }
     var debugger: DebuggerConfig { get set }
 }

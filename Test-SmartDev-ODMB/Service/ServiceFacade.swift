@@ -11,16 +11,17 @@ import UIKit
 class ServiceFacade {
     static let applicationService: ApplicationConfigurable = ApplicationServiceConfiguration()
     static let loadingServiceable: LoadingServiceable = LoadingServiceableImplement()
-    
+    static let apiService: NetworkProviable = NetworkProvider(with: APIConfigure())
+
     static func registerDefaultService(with application: UIApplication, and window: UIWindow?) {
         ServiceFacade.initializeService()
         applicationService.applicationRoute(from: window.unwrapped(or: UIWindow()))
     }
-    
+
     static func getService<T>(_ type: T.Type) -> T? {
         return Container.default.resolve(type)
     }
-    
+
     private static func initializeService() {
         Container.default.register(LoadingServiceable.self) { (_) -> LoadingServiceable in
             return ServiceFacade.loadingServiceable
