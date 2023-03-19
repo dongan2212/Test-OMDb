@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="MovieResultCollectionCell" id="gTV-IL-0wX" customClass="MovieResultCollectionCell" customModule="Test_SmartDev_ODMB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Di-er-g1D">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="REI-lN-kG9">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sexy style " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABn-jg-LPM">
+                                <rect key="frame" x="12" y="170" width="79" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="131" id="u1y-RW-BY7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2023" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AEs-M1-Lot">
+                                <rect key="frame" x="104" y="170" width="38" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="REI-lN-kG9" firstAttribute="top" secondItem="0Di-er-g1D" secondAttribute="top" id="0J4-RK-1NX"/>
+                            <constraint firstItem="AEs-M1-Lot" firstAttribute="centerY" secondItem="ABn-jg-LPM" secondAttribute="centerY" id="0lc-Cb-vYz"/>
+                            <constraint firstItem="ABn-jg-LPM" firstAttribute="leading" secondItem="0Di-er-g1D" secondAttribute="leading" constant="12" id="5c9-a3-0jV"/>
+                            <constraint firstItem="AEs-M1-Lot" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ABn-jg-LPM" secondAttribute="trailing" constant="10" id="9EB-jy-Tlv"/>
+                            <constraint firstAttribute="trailing" secondItem="REI-lN-kG9" secondAttribute="trailing" id="Qoh-dO-BiK"/>
+                            <constraint firstAttribute="trailing" secondItem="AEs-M1-Lot" secondAttribute="trailing" constant="8" id="mHd-W0-dYI"/>
+                            <constraint firstItem="REI-lN-kG9" firstAttribute="leading" secondItem="0Di-er-g1D" secondAttribute="leading" id="rFP-f5-5ef"/>
+                            <constraint firstAttribute="bottom" secondItem="ABn-jg-LPM" secondAttribute="bottom" constant="12" id="tKC-lm-Zii"/>
+                            <constraint firstAttribute="bottom" secondItem="REI-lN-kG9" secondAttribute="bottom" id="zqu-r8-C8g"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="0Di-er-g1D" secondAttribute="bottom" id="Cvz-oK-tIA"/>
+                <constraint firstAttribute="trailing" secondItem="0Di-er-g1D" secondAttribute="trailing" id="Qye-tm-bfY"/>
+                <constraint firstItem="0Di-er-g1D" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iBX-SP-2Im"/>
+                <constraint firstItem="0Di-er-g1D" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kfD-pb-z4m"/>
+            </constraints>
+            <connections>
+                <outlet property="bgImageView" destination="REI-lN-kG9" id="OX9-nm-Mz8"/>
+                <outlet property="containerView" destination="0Di-er-g1D" id="avz-Vs-gHo"/>
+                <outlet property="titleLabel" destination="ABn-jg-LPM" id="BOv-AO-wa5"/>
+                <outlet property="yearLabel" destination="AEs-M1-Lot" id="vFH-ia-1LS"/>
+            </connections>
+            <point key="canvasLocation" x="14" y="20"/>
+        </collectionViewCell>
+    </objects>
+</document>

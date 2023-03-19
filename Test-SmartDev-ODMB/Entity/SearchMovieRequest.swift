@@ -1,5 +1,5 @@
 //
-//  Movie.swift
+//  SearchMovieRequest.swift
 //  Test-SmartDev-ODMB
 //
 //  Created by Vo The Dong An on 19/03/2023.
@@ -7,10 +7,8 @@
 
 import Foundation
 
-struct Movie {
+struct SearchMovieRequest {
     var title: String?
-    var imdbID: String?
-    var year: Int?
     var type: ImdbType?
-    var poster: String?
+    var page: Int?
 }

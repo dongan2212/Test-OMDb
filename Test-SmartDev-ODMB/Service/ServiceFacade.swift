@@ -26,5 +26,9 @@ class ServiceFacade {
         Container.default.register(LoadingServiceable.self) { (_) -> LoadingServiceable in
             return ServiceFacade.loadingServiceable
         }
+
+        Container.default.register(NetworkProviable.self) { (_) in
+            return ServiceFacade.apiService
+        }
     }
 }

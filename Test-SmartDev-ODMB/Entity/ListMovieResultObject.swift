@@ -9,8 +9,8 @@ import Foundation
 
 struct ListMovieObject: Codable {
     var search: [MovieObject]?
-    var totalResults: Int?
-    var response: Bool?
+    var totalResults: String?
+    var response: String?
     var error: String?
 
     enum CodingKeys: String, CodingKey {

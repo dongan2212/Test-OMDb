@@ -10,9 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol MovieServiceable {
-    func searchMovie(by title: String?,
-                     type: ImdbType?,
-                     and page: Int?,
+    func searchMovie(by request: SearchMovieRequest,
                      completion: @escaping (_ results: ListMovieObject?,
                                             _ error: Error?) -> Void)
 }
@@ -23,14 +21,12 @@ final class MovieServiceImplement: MovieServiceable {
         return ServiceFacade.getService(NetworkProviable.self)
     }
 
-    func searchMovie(by title: String?,
-                     type: ImdbType?,
-                     and page: Int?,
+    func searchMovie(by request: SearchMovieRequest,
                      completion: @escaping (_ results: ListMovieObject?,
                                             _ error: Error?) -> Void) {
         guard let apiService = networkProvider,
-            let title = title else { return }
-        let input = SearchMovieInput(title: title, type: type, page: page)
+            let title = request.title else { return }
+        let input = SearchMovieInput(title: title, type: request.type, page: request.page)
         let output = SearchMovieOutput()
         let request = SearchMovieAPI(input: input, output: output)
 

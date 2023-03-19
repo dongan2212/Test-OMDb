@@ -13,8 +13,8 @@ enum ImdbType: String {
 
 struct MovieObject: Codable {
     var title: String?
-    var imdbID: Int?
-    var year: Int?
+    var imdbID: String?
+    var year: String?
     var type: String?
     var poster: String?
 
@@ -43,7 +43,7 @@ extension MovieObject {
         return Movie(
             title: self.title,
             imdbID: self.imdbID,
-            year: self.year,
+            year: Int(self.year.ignoreNil()),
             type: imdbType,
             poster: self.poster
         )

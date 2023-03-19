@@ -17,6 +17,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieResultViewController" customModule="Test_SmartDev_ODMB" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="wb0-Cj-Ejl" id="eGR-Zv-kg8"/>
+                <outlet property="collectionViewBottomConstraint" destination="FHX-U4-Ooz" id="BCJ-cz-z3i"/>
+                <outlet property="emptyContainerView" destination="6SU-Nu-BxC" id="K61-Jc-bZ1"/>
+                <outlet property="emptyLabel" destination="ksb-EW-1q2" id="caf-aA-8h8"/>
+                <outlet property="searchBarContainerView" destination="Drx-ie-amo" id="fD9-xE-8t9"/>
+                <outlet property="searchBarTextField" destination="1km-iC-cw2" id="4FJ-M6-kDo"/>
+                <outlet property="searchButton" destination="6il-rh-lgl" id="qoD-pm-vB9"/>
                 <outlet property="view" destination="Y9J-6M-gv5" id="vRq-a5-7ua"/>
             </connections>
         </placeholder>
@@ -31,7 +38,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Drx-ie-amo">
                             <rect key="frame" x="16" y="4" width="312" height="36"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1km-iC-cw2" customClass="NTBSearchBar" customModule="Ngernturbo" customModuleProvider="target">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1km-iC-cw2" customClass="AppSearchBar" customModule="Ngernturbo" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="312" height="36"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -52,7 +59,7 @@
                             <inset key="titleEdgeInsets" minX="-6" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Search">
-                                <color key="titleColor" name="hexFA4786"/>
+                                <color key="titleColor" systemColor="systemBlueColor"/>
                             </state>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CFh-fg-XdU">
@@ -90,8 +97,8 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbP-LI-MHX" userLabel="ImageContainer">
                                             <rect key="frame" x="130.66666666666666" y="0.0" width="100" height="100"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cannot_found_branch" translatesAutoresizingMaskIntoConstraints="NO" id="S3v-2w-6qL">
-                                                    <rect key="frame" x="20" y="20" width="60" height="60"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="S3v-2w-6qL">
+                                                    <rect key="frame" x="39.666666666666686" y="41" width="20.333333333333329" height="18.666666666666671"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" name="hexFBDAEC"/>
@@ -116,7 +123,7 @@
                                         <constraint firstItem="nbP-LI-MHX" firstAttribute="centerX" secondItem="8X8-aJ-gTg" secondAttribute="centerX" id="dhW-yj-b6I"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ไม่พบสัญญาที่เปิดอยู่" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksb-EW-1q2">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksb-EW-1q2">
                                     <rect key="frame" x="0.0" y="123.99999999999999" width="361" height="19.333333333333329"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <nil key="textColor"/>
@@ -133,8 +140,8 @@
                         <constraint firstItem="G9d-bG-kEJ" firstAttribute="leading" secondItem="6SU-Nu-BxC" secondAttribute="leading" id="ZLw-nn-4Ln"/>
                     </constraints>
                 </view>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wb0-Cj-Ejl">
-                    <rect key="frame" x="0.0" y="103" width="393" height="749"/>
+                <collectionView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wb0-Cj-Ejl">
+                    <rect key="frame" x="10" y="103" width="373" height="749"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="z5t-Pc-tG1">
                         <size key="itemSize" width="128" height="128"/>
@@ -143,33 +150,16 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZc-2Z-C6y">
-                    <rect key="frame" x="329" y="754" width="48" height="48"/>
-                    <color key="backgroundColor" name="hexFFEBF6"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="48" id="FwN-uu-g27"/>
-                        <constraint firstAttribute="width" constant="48" id="q6j-PO-miM"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="" image="ic_up_to_top"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="24"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="X7P-iy-ITV"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="ORq-9I-T4y" firstAttribute="top" secondItem="X7P-iy-ITV" secondAttribute="top" id="17N-EE-ID9"/>
                 <constraint firstItem="X7P-iy-ITV" firstAttribute="trailing" secondItem="6SU-Nu-BxC" secondAttribute="trailing" constant="16" id="9bI-zf-PgB"/>
-                <constraint firstItem="X7P-iy-ITV" firstAttribute="bottom" secondItem="ZZc-2Z-C6y" secondAttribute="bottom" constant="16" id="BaO-8f-gOX"/>
                 <constraint firstItem="ORq-9I-T4y" firstAttribute="leading" secondItem="X7P-iy-ITV" secondAttribute="leading" id="E25-ln-E2i"/>
-                <constraint firstItem="wb0-Cj-Ejl" firstAttribute="leading" secondItem="X7P-iy-ITV" secondAttribute="leading" id="FDi-QK-XYw"/>
+                <constraint firstItem="wb0-Cj-Ejl" firstAttribute="leading" secondItem="X7P-iy-ITV" secondAttribute="leading" constant="10" id="FDi-QK-XYw"/>
                 <constraint firstAttribute="bottom" secondItem="wb0-Cj-Ejl" secondAttribute="bottom" id="FHX-U4-Ooz"/>
-                <constraint firstItem="X7P-iy-ITV" firstAttribute="trailing" secondItem="ZZc-2Z-C6y" secondAttribute="trailing" constant="16" id="Ugk-vb-qgq"/>
-                <constraint firstItem="X7P-iy-ITV" firstAttribute="trailing" secondItem="wb0-Cj-Ejl" secondAttribute="trailing" id="VS7-rj-15n"/>
+                <constraint firstItem="X7P-iy-ITV" firstAttribute="trailing" secondItem="wb0-Cj-Ejl" secondAttribute="trailing" constant="10" id="VS7-rj-15n"/>
                 <constraint firstItem="X7P-iy-ITV" firstAttribute="trailing" secondItem="ORq-9I-T4y" secondAttribute="trailing" id="XPP-xM-yad"/>
                 <constraint firstItem="6SU-Nu-BxC" firstAttribute="leading" secondItem="Y9J-6M-gv5" secondAttribute="leading" constant="16" id="YKs-GT-nAY"/>
                 <constraint firstItem="6SU-Nu-BxC" firstAttribute="top" secondItem="ORq-9I-T4y" secondAttribute="bottom" constant="48" id="ZsT-1j-sT5"/>
@@ -179,22 +169,18 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_cannot_found_branch" width="60" height="60"/>
-        <image name="ic_up_to_top" width="20" height="18"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <namedColor name="hexE5E8EF">
-            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="hexFA4786">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hexFBDAEC">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="hexFFEBF6">
-            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
