@@ -19,7 +19,7 @@ final class MovieResultViewController: ViewController {
     @IBOutlet private weak var searchBarTextField: AppSearchBar!
     @IBOutlet private weak var collectionViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var searchButton: UIButton!
-    
+
     // MARK: - Properties
     private var viewModel: MovieResultViewModel
     private var loadMoreTrigger = PublishRelay<Void>()
@@ -121,6 +121,16 @@ final class MovieResultViewController: ViewController {
             cell.setupUI(for: item)
             return cell
         }.disposed(by: disposeBag)
+
+        output.scrollToTop
+            .drive(onNext: { [weak self] in
+            guard let self = self,
+                  self.collectionView.numberOfItems(inSection: 0) > 0 else { return }
+            // handle scroll to top when user tapped search result button
+            self.collectionView.scrollToItem(at: .init(item: 0, section: 0),
+                                             at: .top,
+                                             animated: true)
+        }).disposed(by: disposeBag)
     }
 
     // MARK: - Private function
@@ -155,7 +165,7 @@ final class MovieResultViewController: ViewController {
         if let appEror = err as? AppError {
             message = appEror.errorMessage ?? AppError.undefinedError.errorMessage.ignoreNil()
         }
-        let alert = AppAlertViewController(title: "Error",  message: message)
+        let alert = AppAlertViewController(title: "Error", message: message)
         alert.addAction(AppAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
     }

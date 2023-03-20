@@ -14,13 +14,10 @@ class MovieResultViewModel: ViewModel {
 
     private var emptyRelay = BehaviorRelay<Bool>(value: false)
     private var moviesRelay = BehaviorRelay<[Movie?]>(value: [])
+    private var scrollToTopActionRelay = PublishRelay<Void>()
     private let firstPage: Int = 1
     private var currentPage: Int = 1
     private(set) var canLoadMore: Bool = false
-
-    var displayedMoviesCount: Int {
-        moviesRelay.value.count
-    }
 
     override init() {
         super.init()
@@ -41,6 +38,7 @@ extension MovieResultViewModel: ViewModelTransformable {
         let appError: Driver<Error>
         let isEmpty: Driver<Bool>
         let movies: Driver<[Movie?]>
+        let scrollToTop: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -48,10 +46,13 @@ extension MovieResultViewModel: ViewModelTransformable {
         handleSearchMovieResult(input: input, searchText: searchText)
         handleLoadMore(input: input, searchText: searchText)
         let moviesDriver = moviesRelay.asDriver()
+        
         return Output(loading: activity.asDriver(),
                       appError: appError.asDriverOnErrorJustComplete(),
                       isEmpty: emptyRelay.asDriver(),
-                      movies: moviesDriver)
+                      movies: moviesDriver,
+                      scrollToTop: scrollToTopActionRelay.asDriverOnErrorJustComplete()
+        )
     }
 }
 
@@ -66,6 +67,7 @@ private extension MovieResultViewModel {
         if let value = value {
             self.currentPage = 1
             self.moviesRelay.accept(value)
+            self.scrollToTopActionRelay.accept(())
         } else {
             self.moviesRelay.accept([])
         }
@@ -84,6 +86,7 @@ private extension MovieResultViewModel {
     func handleSearchMovieResult(input: Input, searchText: Driver<String>) {
         Driver.merge(input.submitSearchAction, input.tapOnSearchButtonAction)
             .withLatestFrom(searchText)
+            .debounce(.milliseconds(100))
             .flatMapLatest { title -> Driver<Result<MoviesResponse, Error>> in
             let request = self.createSearchMovieRequest(title: title, page: self.firstPage)
             return self.movieUseCase.searchMovie(by: request)
@@ -112,9 +115,11 @@ private extension MovieResultViewModel {
         input.loadMoreTrigger
             .filter({ self.canLoadMore })
             .withLatestFrom(searchText)
+            .debounce(.milliseconds(100))
             .flatMapLatest { title -> Driver<Result<MoviesResponse, Error>> in
             let request = self.createSearchMovieRequest(title: title, page: self.currentPage + 1)
             return self.movieUseCase.searchMovie(by: request)
+                .trackActivity(self.activity)
                 .asDriverOnErrorJustComplete()
         }
             .drive(onNext: { [weak self] response in

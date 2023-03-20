@@ -23,12 +23,12 @@ class ServiceFacade {
     }
 
     private static func initializeService() {
-        Container.default.register(LoadingServiceable.self) { (_) -> LoadingServiceable in
-            return ServiceFacade.loadingServiceable
-        }
-
         Container.default.register(NetworkProviable.self) { (_) in
             return ServiceFacade.apiService
+        }
+        
+        Container.default.register(LoadingServiceable.self) { (_) -> LoadingServiceable in
+            return ServiceFacade.loadingServiceable
         }
     }
 }

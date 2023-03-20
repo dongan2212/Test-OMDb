@@ -87,6 +87,7 @@ extension ObservableConvertibleType {
     func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<Element> {
         return activityIndicator.trackActivityOfObservable(self)
     }
+
     func trackActivity(_ activityIndictor: ActivityIndicator, condition: Bool) -> Observable<Element> {
         guard condition else {
             return self.asObservable()
