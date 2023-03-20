@@ -26,6 +26,33 @@ extension UIView {
 }
 
 extension UIView {
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return self.layer.cornerRadius
+        }
+        set {
+            self.rounded(cornerRadius: newValue)
+        }
+    }
+
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return self.layer.borderWidth
+        }
+        set {
+            self.layer.borderWidth = newValue
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+        get {
+            return UIColor(cgColor: self.layer.borderColor!)
+        }
+        set {
+            self.layer.borderColor = newValue?.cgColor
+        }
+    }
+    
     func roundedUsingWidth() {
         self.rounded(cornerRadius: self.frame.size.width / 2)
     }

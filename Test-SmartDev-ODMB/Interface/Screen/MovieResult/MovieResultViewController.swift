@@ -13,6 +13,7 @@ final class MovieResultViewController: ViewController {
     // MARK: - Outlets
     @IBOutlet private weak var emptyContainerView: UIView!
     @IBOutlet private weak var emptyLabel: UILabel!
+    @IBOutlet private weak var collectionContainerView: UIView!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var searchBarContainerView: UIView!
     @IBOutlet private weak var searchBarTextField: AppSearchBar!
@@ -21,8 +22,8 @@ final class MovieResultViewController: ViewController {
     
     // MARK: - Properties
     private var viewModel: MovieResultViewModel
+    private var loadMoreTrigger = PublishRelay<Void>()
     let minYOffset: CGFloat = 45.0
-    let buttonHeight: CGFloat = 48.0
 
     init(viewModel: MovieResultViewModel) {
         self.viewModel = viewModel
@@ -41,16 +42,11 @@ final class MovieResultViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideNavigationBar(animated: true)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        showNavigationBar(bgColor: .white, animated: true)
     }
 
     // MARK: - Setup
     override func makeUI() {
+        collectionContainerView.isHidden = true
         emptyContainerView.isHidden = true
         emptyLabel.text = "Empty Result"
         emptyLabel.textColor = UIColor.red
@@ -98,6 +94,7 @@ final class MovieResultViewController: ViewController {
         let tapOnSearchButtonAction = searchButton.rx.tap
         let input = MovieResultViewModel.Input(
             loadTrigger: .just(()),
+            loadMoreTrigger: loadMoreTrigger.asDriverOnErrorJustComplete(),
             searchTextTrigger: searchBarTextField.value(),
             submitSearchAction: submitSearchAction.asDriver(),
             tapOnSearchButtonAction: tapOnSearchButtonAction.asDriver()
@@ -105,21 +102,22 @@ final class MovieResultViewController: ViewController {
 
         let output = viewModel.transform(input: input)
         output.appError
-            .drive(self.rx.appError)
-            .disposed(by: disposeBag)
+            .drive(onNext: { [weak self] err in
+            self?.showError(err)
+        }).disposed(by: disposeBag)
 
         output.isEmpty
             .drive(onNext: { [weak self] isEmpty in
             self?.emptyContainerView.isHidden = !isEmpty
-            self?.collectionView.isHidden = isEmpty
-//            self?.scrollButton.isHidden = isEmpty
+            self?.collectionContainerView.isHidden = isEmpty
         }).disposed(by: disposeBag)
 
         output
             .movies
             .drive(collectionView.rx.items) { collectionView, index, item in
+            let indexPath = IndexPath(item: index, section: 0)
             let cell = collectionView.dequeueReusableCell(MovieResultCollectionCell.self,
-                                                          for: .init(item: index, section: 0))
+                                                          for: indexPath)
             cell.setupUI(for: item)
             return cell
         }.disposed(by: disposeBag)
@@ -144,12 +142,22 @@ final class MovieResultViewController: ViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] keyboardHeight in
             DispatchQueue.main.async {
-                self?.collectionViewBottomConstraint.constant = keyboardHeight + 24.0
+                self?.collectionViewBottomConstraint.constant = keyboardHeight + 32.0
                 UIView.animate(withDuration: 0.2) {
                     self?.view.layoutIfNeeded()
                 }
             }
         }).disposed(by: disposeBag)
+    }
+
+    func showError(_ err: Error) {
+        var message: String = err.localizedDescription
+        if let appEror = err as? AppError {
+            message = appEror.errorMessage ?? AppError.undefinedError.errorMessage.ignoreNil()
+        }
+        let alert = AppAlertViewController(title: "Error",  message: message)
+        alert.addAction(AppAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
     }
 }
 
@@ -169,15 +177,9 @@ extension MovieResultViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UIScrollViewDelegate
 extension MovieResultViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let yOffset = scrollView.contentOffset.y
-//        if yOffset < minYOffset {
-//            self.scrollButton.alpha = 0
-//        } else {
-            // get y offset start from min y
-//            let newOffset = yOffset - minYOffset
-//            let alpha = min(1, (newOffset / buttonHeight))
-//            self.scrollButton.alpha = alpha
-//        }
-//        self.scrollButton.isEnabled = self.scrollButton.alpha == 1
+        // Reach bottom edge
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) && viewModel.canLoadMore {
+            loadMoreTrigger.accept(())
+        }
     }
 }

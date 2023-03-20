@@ -37,4 +37,11 @@ extension UICollectionView {
         }
         return cell
     }
+    
+    /// Getting indexpath of last item
+    var lastIndexPath: IndexPath {
+      let lastSection = numberOfSections - 1
+      let lastItem = numberOfItems(inSection: lastSection) - 1
+      return IndexPath(row: lastItem, section: lastSection)
+    }
 }

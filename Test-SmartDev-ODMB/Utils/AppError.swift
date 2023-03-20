@@ -8,9 +8,11 @@
 import Foundation
 
 struct AppError: Codable, Error {
-  var errorMessage: String?
-  
-  enum CodingKeys: String, CodingKey {
-    case errorMessage = "Error"
-  }
+    var errorMessage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case errorMessage = "Error"
+    }
+    
+    static let undefinedError: AppError = AppError(errorMessage: "Unknown error")
 }

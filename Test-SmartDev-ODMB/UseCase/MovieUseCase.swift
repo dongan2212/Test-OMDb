@@ -9,12 +9,13 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+typealias MoviesResponse = (movies: [Movie?]?, totalResults: Int?)
 protocol MovieUseCaseable {
-    func searchMovie(by request: SearchMovieRequest) -> Observable<Result<[Movie?]?, Error>>
+    func searchMovie(by request: SearchMovieRequest) -> Observable<Result<MoviesResponse, Error>>
 }
 
 class MovieUseCaseableImplement: BaseUseCaseable, MovieUseCaseable {
-    func searchMovie(by request: SearchMovieRequest) -> Observable<Result<[Movie?]?, Error>> {
+    func searchMovie(by request: SearchMovieRequest) -> Observable<Result<MoviesResponse, Error>> {
         return .create { signal -> Disposable in
             self.movieService.searchMovie(by: request) { result, error in
                 if let error = error {
@@ -22,13 +23,14 @@ class MovieUseCaseableImplement: BaseUseCaseable, MovieUseCaseable {
                 } else if let result = result {
                     if result.response.ignoreNil().lowercased() == "true" {
                         let movies: [Movie] = result.search?.compactMap({ $0.transform() }) ?? []
-                        signal.onNext(.success(movies))
+                        let response: MoviesResponse = (movies, Int(result.totalResults.ignoreNil()))
+                        signal.onNext(.success(response))
                     } else {
                         let appError: AppError = AppError(errorMessage: result.error.ignoreNil())
                         signal.onNext(.failure(appError))
                     }
                 } else {
-                    signal.onNext(.success([]))
+                    signal.onNext(.failure(AppError.undefinedError))
                 }
                 signal.onCompleted()
             }

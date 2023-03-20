@@ -14,9 +14,13 @@ class MovieResultViewModel: ViewModel {
 
     private var emptyRelay = BehaviorRelay<Bool>(value: false)
     private var moviesRelay = BehaviorRelay<[Movie?]>(value: [])
-    private var currentPage: Int = 1
     private let firstPage: Int = 1
-    private var isLastPage: Bool = true
+    private var currentPage: Int = 1
+    private(set) var canLoadMore: Bool = false
+
+    var displayedMoviesCount: Int {
+        moviesRelay.value.count
+    }
 
     override init() {
         super.init()
@@ -26,7 +30,7 @@ class MovieResultViewModel: ViewModel {
 extension MovieResultViewModel: ViewModelTransformable {
     struct Input {
         let loadTrigger: Driver<Void>
-//        let loadMoreTrigger: Driver<Void>
+        let loadMoreTrigger: Driver<Void>
         let searchTextTrigger: Driver<String>
         let submitSearchAction: Driver<Void>
         let tapOnSearchButtonAction: Driver<Void>
@@ -42,8 +46,8 @@ extension MovieResultViewModel: ViewModelTransformable {
     func transform(input: Input) -> Output {
         let searchText = input.searchTextTrigger
         handleSearchMovieResult(input: input, searchText: searchText)
+        handleLoadMore(input: input, searchText: searchText)
         let moviesDriver = moviesRelay.asDriver()
-
         return Output(loading: activity.asDriver(),
                       appError: appError.asDriverOnErrorJustComplete(),
                       isEmpty: emptyRelay.asDriver(),
@@ -56,36 +60,76 @@ private extension MovieResultViewModel {
         SearchMovieRequest(title: title, type: .movie, page: page)
     }
 
-    func updateMovieList(_ value: [Movie?]?) {
+    func initialize(movies value: [Movie?]?, totalResult: Int) {
         self.emptyRelay.accept(value?.isEmpty ?? false)
-        let unwrappedValue = value ?? []
-        let currentValue = self.moviesRelay.value
-        let newValue = currentValue + unwrappedValue
-        if let value = value, !value.isEmpty {
-            self.moviesRelay.accept(newValue)
+        self.canLoadMore = (value?.count ?? 0) < totalResult
+        if let value = value {
+            self.currentPage = 1
+            self.moviesRelay.accept(value)
+        } else {
+            self.moviesRelay.accept([])
+        }
+    }
+
+    func update(movies value: [Movie?]?, totalResult: Int) {
+        if let value = value {
+            self.currentPage += 1
+            let currentMovies = moviesRelay.value
+            let newMovies = currentMovies + value
+            self.moviesRelay.accept(newMovies)
+            self.canLoadMore = newMovies.count < totalResult
         }
     }
 
     func handleSearchMovieResult(input: Input, searchText: Driver<String>) {
         Driver.merge(input.submitSearchAction, input.tapOnSearchButtonAction)
             .withLatestFrom(searchText)
-            .distinctUntilChanged({ oldValue, newValue in
-            return oldValue == newValue
-        })
-            .flatMapLatest { title -> Driver<Result<[Movie?]?, Error>> in
-            let request = self.createSearchMovieRequest(title: title, page: self.currentPage)
+            .flatMapLatest { title -> Driver<Result<MoviesResponse, Error>> in
+            let request = self.createSearchMovieRequest(title: title, page: self.firstPage)
             return self.movieUseCase.searchMovie(by: request)
                 .trackActivity(self.activity)
                 .asDriverOnErrorJustComplete()
         }
-            .drive(onNext: { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
+            .drive(onNext: { [weak self] response in
+            guard let self = self else { return }
+            switch response {
             case .success(let result):
-                self.updateMovieList(result)
+                let movieList = result.movies ?? []
+                self.initialize(movies: movieList, totalResult: result.totalResults.ignoreNil())
 
             case .failure(let error):
-                self.appError.onNext(error)
+                if let appError = error as? AppError {
+                    self.appError.onNext(appError)
+                } else {
+                    self.appError.onNext(error)
+                }
+                self.emptyRelay.accept(true)
+            }
+        }).disposed(by: disposeBag)
+    }
+
+    func handleLoadMore(input: Input, searchText: Driver<String>) {
+        input.loadMoreTrigger
+            .filter({ self.canLoadMore })
+            .withLatestFrom(searchText)
+            .flatMapLatest { title -> Driver<Result<MoviesResponse, Error>> in
+            let request = self.createSearchMovieRequest(title: title, page: self.currentPage + 1)
+            return self.movieUseCase.searchMovie(by: request)
+                .asDriverOnErrorJustComplete()
+        }
+            .drive(onNext: { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                let movieList = result.movies ?? []
+                self.update(movies: movieList, totalResult: result.totalResults.ignoreNil())
+
+            case .failure(let error):
+                if let appError = error as? AppError {
+                    self.appError.onNext(appError)
+                } else {
+                    self.appError.onNext(error)
+                }
             }
         }).disposed(by: disposeBag)
     }

@@ -31,7 +31,7 @@ class AppSearchBar: UITextField {
         let leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 30.0, height: frame.height)))
         let searchIcon = UIImageView(frame: CGRect(x: 4, y: 7, width: 24.0, height: 22.0))
         searchIcon.center.y = leftView.center.y
-//        searchIcon.image = AppImage.icSearchBar.image
+        searchIcon.image = UIImage(named: "ic_search")
         searchIcon.contentMode = .center
         leftView.addSubview(searchIcon)
 
@@ -41,7 +41,7 @@ class AppSearchBar: UITextField {
         let rightView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 29.0, height: frame.height)))
 
         clearButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 21.0, height: frame.height)))
-//        clearButton.setImage(AppImage.icClearText.image, for: .normal)
+        clearButton.setImage(UIImage(named: "ic_clear_text"), for: .normal)
         clearButton.contentMode = .center
         clearButton.center = rightView.center
         clearButton.addTarget(self, action: #selector(clearButtonTapped(_:)), for: .touchUpInside)
