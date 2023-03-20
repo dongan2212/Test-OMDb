@@ -92,9 +92,16 @@ final class MovieResultViewController: ViewController {
         super.bindingData()
         let submitSearchAction = searchBarTextField.rx.controlEvent(.editingDidEndOnExit)
         let tapOnSearchButtonAction = searchButton.rx.tap
+
+        Driver.merge(tapOnSearchButtonAction.asDriver(), submitSearchAction.asDriver())
+            .drive(onNext: { [weak self] in
+            self?.searchBarTextField.resignFirstResponder()
+        }).disposed(by: disposeBag)
+
         let input = MovieResultViewModel.Input(
             loadTrigger: .just(()),
             loadMoreTrigger: loadMoreTrigger.asDriverOnErrorJustComplete(),
+            inSearchTrigger: searchBarTextField.onChange(),
             searchTextTrigger: searchBarTextField.value(),
             submitSearchAction: submitSearchAction.asDriver(),
             tapOnSearchButtonAction: tapOnSearchButtonAction.asDriver()
@@ -112,6 +119,12 @@ final class MovieResultViewController: ViewController {
             self?.collectionContainerView.isHidden = isEmpty
         }).disposed(by: disposeBag)
 
+        output.resetSearch
+            .drive(onNext: { [weak self] _ in
+            self?.emptyContainerView.isHidden = true
+            self?.collectionContainerView.isHidden = true
+        }).disposed(by: disposeBag)
+
         output
             .movies
             .drive(collectionView.rx.items) { collectionView, index, item in
@@ -125,7 +138,7 @@ final class MovieResultViewController: ViewController {
         output.scrollToTop
             .drive(onNext: { [weak self] in
             guard let self = self,
-                  self.collectionView.numberOfItems(inSection: 0) > 0 else { return }
+                self.collectionView.numberOfItems(inSection: 0) > 0 else { return }
             // handle scroll to top when user tapped search result button
             self.collectionView.scrollToItem(at: .init(item: 0, section: 0),
                                              at: .top,

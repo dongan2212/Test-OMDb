@@ -18,6 +18,7 @@ class MovieResultViewModel: ViewModel {
     private let firstPage: Int = 1
     private var currentPage: Int = 1
     private(set) var canLoadMore: Bool = false
+    var resetSearchActionRelay = PublishRelay<Void>()
 
     override init() {
         super.init()
@@ -28,6 +29,7 @@ extension MovieResultViewModel: ViewModelTransformable {
     struct Input {
         let loadTrigger: Driver<Void>
         let loadMoreTrigger: Driver<Void>
+        let inSearchTrigger: Driver<String>
         let searchTextTrigger: Driver<String>
         let submitSearchAction: Driver<Void>
         let tapOnSearchButtonAction: Driver<Void>
@@ -39,19 +41,21 @@ extension MovieResultViewModel: ViewModelTransformable {
         let isEmpty: Driver<Bool>
         let movies: Driver<[Movie?]>
         let scrollToTop: Driver<Void>
+        let resetSearch: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
         let searchText = input.searchTextTrigger
         handleSearchMovieResult(input: input, searchText: searchText)
         handleLoadMore(input: input, searchText: searchText)
+        handleResetSearch(input: input)
         let moviesDriver = moviesRelay.asDriver()
-        
         return Output(loading: activity.asDriver(),
                       appError: appError.asDriverOnErrorJustComplete(),
                       isEmpty: emptyRelay.asDriver(),
                       movies: moviesDriver,
-                      scrollToTop: scrollToTopActionRelay.asDriverOnErrorJustComplete()
+                      scrollToTop: scrollToTopActionRelay.asDriverOnErrorJustComplete(),
+                      resetSearch: resetSearchActionRelay.asDriverOnErrorJustComplete()
         )
     }
 }
@@ -83,10 +87,17 @@ private extension MovieResultViewModel {
         }
     }
 
+    func handleResetSearch(input: Input) {
+        input.inSearchTrigger
+            .drive(onNext: { [weak self] _ in
+            self?.resetSearchActionRelay.accept(())
+        }).disposed(by: disposeBag)
+    }
+
     func handleSearchMovieResult(input: Input, searchText: Driver<String>) {
         Driver.merge(input.submitSearchAction, input.tapOnSearchButtonAction)
             .withLatestFrom(searchText)
-            .debounce(.milliseconds(100))
+            .debounce(.milliseconds(150))
             .flatMapLatest { title -> Driver<Result<MoviesResponse, Error>> in
             let request = self.createSearchMovieRequest(title: title, page: self.firstPage)
             return self.movieUseCase.searchMovie(by: request)
@@ -115,7 +126,7 @@ private extension MovieResultViewModel {
         input.loadMoreTrigger
             .filter({ self.canLoadMore })
             .withLatestFrom(searchText)
-            .debounce(.milliseconds(100))
+            .debounce(.milliseconds(150))
             .flatMapLatest { title -> Driver<Result<MoviesResponse, Error>> in
             let request = self.createSearchMovieRequest(title: title, page: self.currentPage + 1)
             return self.movieUseCase.searchMovie(by: request)
