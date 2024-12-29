@@ -22,8 +22,7 @@ extension UIImageView {
               self.image = placeholder
               return
           }
-          let resource = ImageResource(downloadURL: url, cacheKey: path)
-          self.kf.setImage(with: resource, placeholder: placeholder)
+          kf.setImage(with: url, placeholder: placeholder)
         }
     }
 }

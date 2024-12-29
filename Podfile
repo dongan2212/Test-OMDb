@@ -11,7 +11,7 @@ end
 
 def common
   pod 'Alamofire', '5.6.1'
-  pod 'Kingfisher', '7.2.2'
+  pod 'Kingfisher', '7.6.1'
   pod 'IQKeyboardManagerSwift', '6.5.10'
   pod 'SwiftLint', '0.47.1'
   pod 'SnapKit', '5.6.0'
